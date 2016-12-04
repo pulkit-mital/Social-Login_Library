@@ -3,7 +3,6 @@ Social-Login-Library is library which makes working with social networks easier.
 
 
 #Getting Started
-First of all, you need to register you application, please check this links: Facebook, Google
 
 
 Next you need to initialize mSocialNetworkManager. Build it with SocialNetworkManager.Builder and add to fragment manager.
