@@ -6,10 +6,73 @@ Social-Login-Library is library which makes working with social networks easier.
 First of all, you need to register you application, please check this links: Facebook, Google
 
 
+Next you need to initialize mSocialNetworkManager. Build it with SocialNetworkManager.Builder and add to fragment manager.
+
+    msocialNetworkManager = new SocialNetworkManager.Builder(this)
+                    .withGoogle(this,null)
+                    .withFacebook(this, "id,name,email,gender,birthday,picture,cover")
+                    .build();
+
+
+Now you can execute requests, for example login request:
+
+For Google:
+
+    msocialNetworkManager.getGoogleSocialLogin().performSignIn(this, new GoogleResponse() {
+                @Override
+                public void onGoogleSignIn(GoogleUser user) {
+
+                }
+
+                @Override
+                public void onGoogleSignInFailed() {
+
+
+                }
+            });
+
+
+For Facebook:
+
+     msocialNetworkManager.getFacebookLogin().performSignIn(this, new FacebookResponse() {
+                @Override
+                public void onFbSignInFail() {
+
+
+                }
+
+                @Override
+                public void onFbSignInSuccess() {
+
+                }
+
+                @Override
+                public void onFbProfileReceived(FacebookUser facebookUser) {
+
+                }
+
+
+            });
+
+
+#Important
+
+1) Library don't manage state, you need to do it yourself
+
+
+    @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            msocialNetworkManager.getGoogleSocialLogin().onActivityResult(requestCode,resultCode,data);
+            msocialNetworkManager.getFacebookLogin().onActivityResult(requestCode,resultCode,data);
+        }
 
 
 
+#Developed By
 
+Pulkit Mital - pulkit.mital@gmail.com
 
 
 
