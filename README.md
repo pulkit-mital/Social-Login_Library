@@ -55,6 +55,9 @@ For Facebook:
             });
 
 
+[![](https://jitpack.io/v/pulkit-mital/Social-Login_Library.svg)](https://jitpack.io/#pulkit-mital/Social-Login_Library)
+
+
 #Important
 
 1) Library don't manage state, you need to do it yourself
