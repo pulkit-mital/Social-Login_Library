@@ -54,6 +54,22 @@ For Facebook:
 
             });
 
+#Including in your project
+
+Add it in your root build.gradle at the end of repositories:
+
+    allprojects {
+    		repositories {
+    			...
+    			maven { url 'https://jitpack.io' }
+    		}
+    	}
+
+Step 2. Add the dependency
+
+   	dependencies {
+   	        compile 'com.github.pulkit-mital:Social-Login_Library:1.0'
+   	}
 
 [![](https://jitpack.io/v/pulkit-mital/Social-Login_Library.svg)](https://jitpack.io/#pulkit-mital/Social-Login_Library)
 
