@@ -118,7 +118,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
    	dependencies {
-   	        compile 'com.github.pulkit-mital:Social-Login_Library:1.0'
+   	        compile 'com.github.pulkit-mital:Social-Login_Library:1.1'
    	}
 
 [![](https://jitpack.io/v/pulkit-mital/Social-Login_Library.svg)](https://jitpack.io/#pulkit-mital/Social-Login_Library)
