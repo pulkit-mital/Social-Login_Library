@@ -12,7 +12,9 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
              />
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="01435911c6b336b89b21bbf95dbf1cc0087e3f40" />
     </application>
 
 </manifest>
