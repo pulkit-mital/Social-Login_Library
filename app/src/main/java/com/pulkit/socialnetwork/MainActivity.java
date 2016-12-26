@@ -2,6 +2,7 @@ package com.pulkit.socialnetwork;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.social.sociallogin.facebookSignIn.FacebookResponse;
 import com.social.sociallogin.facebookSignIn.FacebookUser;
 import com.social.sociallogin.googleSignIn.GoogleResponse;
 import com.social.sociallogin.googleSignIn.GoogleUser;
+import com.social.sociallogin.twitterSignin.TwitterResponse;
+import com.social.sociallogin.twitterSignin.TwitterUser;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -19,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private SocialNetworkManager msocialNetworkManager;
-
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "YOUR-CONSUMER-KEY";
+    private static final String TWITTER_SECRET = "YOUR-CONSUMER-SECRET";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +33,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button google = (Button) findViewById(R.id.login_google);
         Button facebook = (Button) findViewById(R.id.login_facebook);
+        Button twitter = (Button) findViewById(R.id.login_twitter);
         google.setOnClickListener(this);
         facebook.setOnClickListener(this);
+        twitter.setOnClickListener(this);
         msocialNetworkManager = new SocialNetworkManager.Builder(this)
                 .withGoogle(this,null)
                 .withFacebook(this, "id,name,email,gender,birthday,picture,cover")
+                .withTwitter(this,TWITTER_KEY,TWITTER_SECRET)
                 .build();
     }
 
@@ -46,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.login_facebook:
                 loginWithFacebook();
+                break;
+            case R.id.login_twitter:
+                loginWithTwitter();
+                break;
         }
     }
 
@@ -95,6 +107,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         });
 
+
+    }
+
+    private void loginWithTwitter(){
+
+        msocialNetworkManager.getTwitterLogin().performSignIn(new TwitterResponse() {
+            @Override
+            public void onTwitterError() {
+                Log.v(TAG,"onTwitterError");
+            }
+
+            @Override
+            public void onTwitterSignIn(@NonNull String userId, @NonNull String userName) {
+                Log.v(TAG, userName);
+            }
+
+            @Override
+            public void onTwitterProfileReceived(TwitterUser user) {
+                if(user !=null){
+                    Log.v(TAG,user.getName());
+                }
+            }
+        });
     }
 
     @Override
@@ -103,5 +138,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         msocialNetworkManager.getGoogleSocialLogin().onActivityResult(requestCode,resultCode,data);
         msocialNetworkManager.getFacebookLogin().onActivityResult(requestCode,resultCode,data);
+        msocialNetworkManager.getTwitterLogin().onActivityResult(requestCode,resultCode,data);
     }
 }

@@ -3,9 +3,11 @@ package com.social.sociallogin;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 
 import com.social.sociallogin.facebookSignIn.FacebookHelper;
 import com.social.sociallogin.googleSignIn.GoogleSignInHelper;
+import com.social.sociallogin.twitterSignin.TwitterHelper;
 
 /**
  * Created by pulkitmital on 18/11/16.
@@ -19,6 +21,9 @@ public class SocialNetworkManager {
     private GoogleSignInHelper googleSignInHelper;
     private String fieldString;
     private FacebookHelper mFacebookHelper;
+    private String twitterConsumerKey;
+    private String twitterConsumerSecret;
+    private TwitterHelper mTwitterHelper;
 
     @Nullable
     private String serverClientId;
@@ -29,6 +34,8 @@ public class SocialNetworkManager {
         activity = builder.activity;
         serverClientId = builder.serverClientId;
         fieldString = builder.fieldString;
+        twitterConsumerKey = builder.twitterConsumerKey;
+        twitterConsumerSecret = builder.twitterConsumerSecret;
     }
 
     /**
@@ -42,19 +49,30 @@ public class SocialNetworkManager {
         return googleSignInHelper;
     }
 
-    public FacebookHelper getFacebookLogin(){
+    public FacebookHelper getFacebookLogin() {
 
-        if(mFacebookHelper == null)
+        if (mFacebookHelper == null)
             mFacebookHelper = new FacebookHelper(fieldString, activity);
 
         return mFacebookHelper;
     }
+
+    public TwitterHelper getTwitterLogin() {
+        if (mTwitterHelper == null)
+            mTwitterHelper = new TwitterHelper(twitterConsumerKey, twitterConsumerSecret, activity);
+
+        return mTwitterHelper;
+    }
+
+
     public static class Builder {
 
         private Context context;
         private FragmentActivity activity;
         private String serverClientId;
         private String fieldString;
+        private String twitterConsumerKey;
+        private String twitterConsumerSecret;
 
 
         /**
@@ -82,11 +100,18 @@ public class SocialNetworkManager {
             return this;
         }
 
-        public Builder withFacebook(FragmentActivity activity, String fieldString){
+        public Builder withFacebook(FragmentActivity activity, String fieldString) {
 
             this.activity = activity;
             this.fieldString = fieldString;
 
+            return this;
+        }
+
+        public Builder withTwitter(FragmentActivity activity, String twitterConsumerKey, String twitterConsumerSecret) {
+            this.activity = activity;
+            this.twitterConsumerKey = twitterConsumerKey;
+            this.twitterConsumerSecret = twitterConsumerSecret;
             return this;
         }
     }

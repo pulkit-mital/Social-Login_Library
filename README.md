@@ -10,12 +10,13 @@ Next you need to initialize mSocialNetworkManager. Build it with SocialNetworkMa
     msocialNetworkManager = new SocialNetworkManager.Builder(this)
                     .withGoogle(this,null)
                     .withFacebook(this, "id,name,email,gender,birthday,picture,cover")
+                    .withTwitter(this,<TWITTER_CONSUMER_KEY>,<TWITTER_CONSUMER_SECRET>)
                     .build();
 
 
 Now you can execute requests, for example login request:
 
-For Google:
+####For Google:
 
     msocialNetworkManager.getGoogleSocialLogin().performSignIn(this, new GoogleResponse() {
                 @Override
@@ -31,7 +32,7 @@ For Google:
             });
 
 
-For Facebook:
+####For Facebook:
 
      msocialNetworkManager.getFacebookLogin().performSignIn(this, new FacebookResponse() {
                 @Override
@@ -52,6 +53,56 @@ For Facebook:
 
 
             });
+
+
+####For Twitter:
+
+Include this in your base/build.gradle
+
+    buildscript {
+        repositories {
+            jcenter()
+            maven { url 'https://maven.fabric.io/public' }
+
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:2.2.3'
+            classpath 'io.fabric.tools:gradle:1.+'
+
+            // NOTE: Do not place your application dependencies here; they belong
+            // in the individual module build.gradle files
+        }
+    }
+
+In your app module build.gradle include:
+
+    apply plugin: 'com.android.application'
+    apply plugin: 'io.fabric'
+
+    repositories {
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+ In your activity to perform sign-in include:
+
+         msocialNetworkManager.getTwitterLogin().performSignIn(new TwitterResponse() {
+                     @Override
+                     public void onTwitterError() {
+
+                     }
+
+                     @Override
+                     public void onTwitterSignIn(@NonNull String userId, @NonNull String userName) {
+
+                     }
+
+                     @Override
+                     public void onTwitterProfileReceived(TwitterUser user) {
+
+                     }
+                 });
+
 
 #Including in your project
 
@@ -84,6 +135,7 @@ Step 2. Add the dependency
 
             msocialNetworkManager.getGoogleSocialLogin().onActivityResult(requestCode,resultCode,data);
             msocialNetworkManager.getFacebookLogin().onActivityResult(requestCode,resultCode,data);
+            msocialNetworkManager.getTwitterLogin().onActivityResult(requestCode,resultCode,data);
         }
 
 

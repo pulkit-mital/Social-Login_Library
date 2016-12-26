@@ -27,4 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Facebook" />
+    <Button
+        android:id="@+id/login_twitter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Twitter" />
 </LinearLayout>
