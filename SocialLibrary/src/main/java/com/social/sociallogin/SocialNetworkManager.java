@@ -1,12 +1,14 @@
 package com.social.sociallogin;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 
 import com.social.sociallogin.facebookSignIn.FacebookHelper;
 import com.social.sociallogin.googleSignIn.GoogleSignInHelper;
+import com.social.sociallogin.pinterestSignin.PinterestSigninHelper;
 import com.social.sociallogin.twitterSignin.TwitterHelper;
 
 /**
@@ -24,8 +26,9 @@ public class SocialNetworkManager {
     private String twitterConsumerKey;
     private String twitterConsumerSecret;
     private TwitterHelper mTwitterHelper;
+    private PinterestSigninHelper pinterestSigninHelper;
+    private String pinterestClientId;
 
-    @Nullable
     private String serverClientId;
 
 
@@ -36,6 +39,7 @@ public class SocialNetworkManager {
         fieldString = builder.fieldString;
         twitterConsumerKey = builder.twitterConsumerKey;
         twitterConsumerSecret = builder.twitterConsumerSecret;
+        this.pinterestClientId = builder.pinterestClientId;
     }
 
     /**
@@ -64,6 +68,12 @@ public class SocialNetworkManager {
         return mTwitterHelper;
     }
 
+    public PinterestSigninHelper getPinterestLogin(){
+        if(pinterestSigninHelper == null)
+            pinterestSigninHelper = new PinterestSigninHelper(context,pinterestClientId);
+
+        return pinterestSigninHelper;
+    }
 
     public static class Builder {
 
@@ -73,6 +83,7 @@ public class SocialNetworkManager {
         private String fieldString;
         private String twitterConsumerKey;
         private String twitterConsumerSecret;
+        private String pinterestClientId;
 
 
         /**
@@ -112,6 +123,11 @@ public class SocialNetworkManager {
             this.activity = activity;
             this.twitterConsumerKey = twitterConsumerKey;
             this.twitterConsumerSecret = twitterConsumerSecret;
+            return this;
+        }
+
+        public Builder withPinterest(@NonNull String clientId){
+            this.pinterestClientId = clientId;
             return this;
         }
     }

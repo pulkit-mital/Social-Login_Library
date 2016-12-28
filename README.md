@@ -11,6 +11,7 @@ Next you need to initialize mSocialNetworkManager. Build it with SocialNetworkMa
                     .withGoogle(this,null)
                     .withFacebook(this, "id,name,email,gender,birthday,picture,cover")
                     .withTwitter(this,<TWITTER_CONSUMER_KEY>,<TWITTER_CONSUMER_SECRET>)
+                    .withPinterest(<PINTEREST_API_KEY>)
                     .build();
 
 
@@ -104,7 +105,37 @@ In your app module build.gradle include:
                  });
 
 
+#### For Pinterest:
+
+Include this code in your manifest under login activity
+
+
+               <intent-filter>
+                    <action android:name="android.intent.action.VIEW" />
+
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+
+                    <data android:scheme="pdk{api-key}" />
+                </intent-filter>
+
+change {api-key} with your pinterest api key
+
+To signin using pinterest include:
+
+    msocialNetworkManager.getPinterestLogin().performSignIn(new PinterestResponse() {
+                @Override
+                public void onPinterestError() {
+
+                }
+
+                @Override
+                public void onPinterestLoginSuccess(PinterestUser pinterestUser) {
+
+                }
+            });
 #Including in your project
+
 
 Add it in your root build.gradle at the end of repositories:
 
@@ -136,6 +167,7 @@ Step 2. Add the dependency
             msocialNetworkManager.getGoogleSocialLogin().onActivityResult(requestCode,resultCode,data);
             msocialNetworkManager.getFacebookLogin().onActivityResult(requestCode,resultCode,data);
             msocialNetworkManager.getTwitterLogin().onActivityResult(requestCode,resultCode,data);
+            msocialNetworkManager.getPinterestLogin().onActivityResult(requestCode,resultCode,data);
         }
 
 
