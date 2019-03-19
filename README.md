@@ -2,7 +2,7 @@
 Social-Login-Library is library which makes working with social networks easier. If you sometime tried to work with social networks on android you should remember that this is a hell. You should read documentation for every social network, download SDK or use some libraries for OAuth and make http calls by yourself. This library should makes your life easier, it contains common interface for Facebook and Google, just build SocialNetworkManager and configure your AndroidManiferst and you can login users.
 
 
-#Getting Started
+# Getting Started
 
 
 Next you need to initialize mSocialNetworkManager. Build it with SocialNetworkManager.Builder and add to fragment manager.
@@ -17,7 +17,7 @@ Next you need to initialize mSocialNetworkManager. Build it with SocialNetworkMa
 
 Now you can execute requests, for example login request:
 
-####For Google:
+#### For Google:
 
     msocialNetworkManager.getGoogleSocialLogin().performSignIn(this, new GoogleResponse() {
                 @Override
@@ -33,7 +33,7 @@ Now you can execute requests, for example login request:
             });
 
 
-####For Facebook:
+#### For Facebook:
 
      msocialNetworkManager.getFacebookLogin().performSignIn(this, new FacebookResponse() {
                 @Override
@@ -56,7 +56,7 @@ Now you can execute requests, for example login request:
             });
 
 
-####For Twitter:
+#### For Twitter:
 
 Include this in your base/build.gradle
 
@@ -134,7 +134,7 @@ To signin using pinterest include:
 
                 }
             });
-#Including in your project
+# Including in your project
 
 
 Add it in your root build.gradle at the end of repositories:
@@ -155,7 +155,7 @@ Step 2. Add the dependency
 [![](https://jitpack.io/v/pulkit-mital/Social-Login_Library.svg)](https://jitpack.io/#pulkit-mital/Social-Login_Library)
 
 
-#Important
+# Important
 
 1) Library don't manage state, you need to do it yourself
 
